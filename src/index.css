@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+:root{
+  --var-dark: rgb(35, 36, 42);
+  --var-light: #e2e2e2;
+  --var-sub: rgb(54, 55, 61);
+  --var-accent: rgb(38, 146, 211);
+}
+
+*, *::before, *::after{
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+
+
+  color: var(--var-light);
+}
+
+html, body, #root, .layout-wrapper{
+  height: auto;
+  min-height: 100vh;
+}

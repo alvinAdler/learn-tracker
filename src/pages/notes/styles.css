@@ -1,0 +1,57 @@
+.words-container{ 
+  height: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+}
+
+.words-cube{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30rem;
+  transform-style: preserve-3d;
+  /* rotate: -1 -2 1 45deg; */
+  transition: 300ms all ease;
+}
+
+.words-cube > div{
+  position: absolute;
+  text-align: center;
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--var-dark);
+  white-space: nowrap;
+}
+
+/* front */
+.first-word{
+  /* background: #2285e480; */
+  translate: 0 0 40px;
+}
+
+/* back */
+.third-word{
+  /* background: #39e42280; */
+  translate: 0 0 -40px;
+  rotate: 1 0 0 -180deg;
+}
+
+/* bottom */
+.second-word{
+  /* background: #e44f2280; */
+  translate: 0 40px 0;
+  rotate: 1 0 0 -90deg;
+}
+
+/* top */
+.fourth-word{
+  /* background: #d7e42280; */
+  translate: 0 -40px 0;
+  rotate: 1 0 0 90deg;
+}
