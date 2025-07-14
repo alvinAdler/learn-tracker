@@ -1,0 +1,31 @@
+.markdown-parent{
+  h1{
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  h2{
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-block: 1rem;
+  }
+
+  ul{
+    list-style-position: inside;
+
+    li{
+      list-style-type: circle;
+    }
+  }
+
+  a{
+    text-decoration: underline;
+    color: #2285e4 !important;
+  }
+
+  hr{
+    margin-block: 1rem;
+  }
+}
