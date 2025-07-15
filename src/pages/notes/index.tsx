@@ -3,8 +3,9 @@ import "./styles.css"
 import "../../markdown-styles.css"
 import SETTINGS from "../../settings.json"
 import { capitalizeString } from '../../utils'
-import Input, { BaseContainer } from '../../components/input'
+import Input from '../../components/input'
 import ReactMarkdown from 'react-markdown'
+import MultiSelectInput from '../../components/multi-select-input'
 
 const NotesPage = () => {
 
@@ -45,6 +46,7 @@ const NotesPage = () => {
     return () => {
       clearInterval(setIntervalId)
     }
+  // eslint-disable-next-line
   }, [])
 
   const doRotation = () => {
@@ -114,9 +116,36 @@ const NotesPage = () => {
           />
         </div>
         <div>
-          <BaseContainer label='Tags'>
-            <p>Pass</p>
-          </BaseContainer>
+          <div>
+            
+          </div>
+            <MultiSelectInput<{id: number}>
+              keyword=''
+              label='Tags'
+              onChange={() => {}}
+              onSearch={() => {}}
+              options={[
+                {id: 1, label: "Sample Label 1", value: "sample_value_1"},
+                {id: 2, label: "Sample Label 2", value: "sample_value_2"},
+                {id: 3, label: "Sample Label 3", value: "sample_value_3"},
+                {id: 4, label: "Sample Label 4", value: "sample_value_4"},
+                {id: 5, label: "Sample Label 5", value: "sample_value_5"},
+              ]}
+              removeItem={() => {}}
+              renderOption={(item, index) => (
+                <p 
+                  key={index}
+                  className='transition-all hover:text-lg cursor-pointer py-1 px-4 hover:bg-[var(--var-light)] hover:text-[var(--var-dark))] rounded-md'
+                  // style={{border: "3px solid red"}}
+                >
+                  {item.label}
+                </p>
+              )}
+              selectedItems={[
+                {id: 2, label: "Sample Label 2", value: "sample_value_2"},
+                {id: 4, label: "Sample Label 4", value: "sample_value_4"},
+              ]}
+            />
         </div>
         <div className='grid gap-4 lg:grid-cols-2'>
           <Input.TextArea

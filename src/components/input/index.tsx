@@ -15,7 +15,7 @@ type UnionInputs = {
   Date: React.FC<InputDateProps>
 }
 
-const Input: React.FC<InputProps> & UnionInputs = ({ label, outerClassname, placeholder, ...rest }) => {
+const Input: React.FC<InputProps> & UnionInputs = ({ label, outerClassname, className, placeholder, ...rest }) => {
 
   return (
     <BaseContainer
@@ -23,7 +23,7 @@ const Input: React.FC<InputProps> & UnionInputs = ({ label, outerClassname, plac
       outerClassname={outerClassname}
     >
       <input
-        className='p-1 border-2 border-solid border-white/50 focus:border-white rounded-md outline-none transition-all' 
+        className={`${className ?? ""} p-1 border-2 border-solid border-white/50 focus:border-white rounded-md outline-none transition-all`} 
         type="text"
         placeholder={placeholder ?? "Enter your text here"}
         {...rest}
@@ -32,25 +32,25 @@ const Input: React.FC<InputProps> & UnionInputs = ({ label, outerClassname, plac
   )
 }
 
-const InputTextArea: React.FC<InputTextAreaProps> = ({ label, outerClassname, ...rest }) => {
+const InputTextArea: React.FC<InputTextAreaProps> = ({ label, outerClassname, className, ...rest }) => {
   return (
     <BaseContainer
       label={label}
       outerClassname={outerClassname}
     >
       <textarea
-        className='p-1 border-2 border-solid border-white/50 focus:border-white rounded-md outline-none transition-all h-full'
+        className={`${className ?? ""} p-1 border-2 border-solid border-white/50 focus:border-white rounded-md outline-none transition-all h-full`}
         {...rest}
       ></textarea>
     </BaseContainer>
   )
 }
 
-const InputDate: React.FC<InputDateProps> = ({ label, outerClassname, placeholder, ...rest }) => {
+const InputDate: React.FC<InputDateProps> = ({ label, outerClassname, className, placeholder, ...rest }) => {
   return (
     <BaseContainer label={label} outerClassname={outerClassname}>
       <input
-        className='p-1 border-2 border-solid border-white/50 focus:border-white rounded-md outline-none transition-all dark:[color-scheme:dark]' 
+        className={`${className ?? ""} p-1 border-2 border-solid border-white/50 focus:border-white rounded-md outline-none transition-all dark:[color-scheme:dark]`} 
         type="date"
         placeholder={placeholder ?? "Enter your text here"}
         {...rest}

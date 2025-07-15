@@ -11,12 +11,12 @@
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
-
-
-  color: var(--var-light);
 }
 
-html, body, #root, .layout-wrapper{
-  height: auto;
-  min-height: 100vh;
+@layer main-layout{
+  html, body, #root, .layout-wrapper{
+    height: auto;
+    min-height: 100vh;
+    color: var(--var-light);
+  }
 }

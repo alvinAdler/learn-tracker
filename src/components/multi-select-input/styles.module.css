@@ -1,0 +1,20 @@
+.multi-input-main-container{
+  isolation: isolate;
+}
+
+.options-container{
+  position: absolute;
+  right: 0;
+  left: 0;
+  /* top: 0.5rem; */
+  margin-top: 3px;
+  top: 0rem;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.options-container.active{
+  top: 4.5rem;
+  visibility: visible;
+  opacity: 1;
+}
