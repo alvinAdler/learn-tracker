@@ -1,27 +1,36 @@
-import React, { useState } from 'react'
-import Input from '../input';
+import React, { useEffect, useState } from 'react'
+import { FaCheck } from "react-icons/fa";
 
 import styles from "./styles.module.css"
 
-export type BaseOption = {label: string; value: string}
-export type MultiSelectInputProps<T> = {
-  options: (T & BaseOption)[];
+import Input from '../input';
+
+export type OptionType = {label: string; value: any}
+export type MultiSelectInputProps = {
+  options: OptionType[];
   label: string;
   placeholder?: string;
-  selectedItems: (T & BaseOption)[];
-  keyword: string;
-  onChange: (selected: (T & BaseOption)) => void;
-  removeItem: (targetItem: (T & BaseOption)) => void;
+  selectedItems: OptionType[];
+  initialKeyword: string;
+  removeItem: (targetItem: OptionType) => void;
   onSearch: (keyword: string) => void;
-  renderOption: (item: (T & BaseOption), index: number) => React.ReactNode;
+  onChange: (item: OptionType) => void;
+  renderOption: (item: OptionType, index: number) => React.ReactNode;
 }
-const MultiSelectInput = <T,>({ options, onChange, label, placeholder, selectedItems, renderOption}: MultiSelectInputProps<T>) => {
+const MultiSelectInput = ({ options, label, placeholder, selectedItems, initialKeyword, renderOption, onChange, onSearch}: MultiSelectInputProps) => {
 
   const [areOptionsVisible, setAreOptionsVisible] = useState(false)
+  const [currentSearchValue, setCurrentSearchValue] = useState(initialKeyword)
+
+  useEffect(() => {
+    setCurrentSearchValue(initialKeyword)
+  }, [initialKeyword])
 
   return (
     <div className={`${styles["multi-input-main-container"]} relative`}>
       <Input
+        value={currentSearchValue}
+        onChange={(ev) => onSearch(ev.target.value)}
         label={label}
         placeholder={placeholder}
         className={`${styles["input-holder"]}`}
@@ -29,9 +38,19 @@ const MultiSelectInput = <T,>({ options, onChange, label, placeholder, selectedI
           setAreOptionsVisible(prevState => !prevState)
         }}
       />
-      <div className={`${styles["options-container"]} ${areOptionsVisible ? styles["active"] : ""} transition-all duration-300 p-4 bg-[var(--var-dark)] flex flex-col gap-2 max-h-[12rem] overflow-auto`}>
+      <div className={`${styles["options-container"]} ${areOptionsVisible ? styles["active"] : ""} transition-all duration-250 p-4 bg-[var(--var-dark)] flex flex-col gap-2 max-h-[12rem] overflow-auto`}>
         {options.map((item, index) => (
-          renderOption(item, index)
+          <div className='
+            transition-all hover:text-lg cursor-pointer py-1 px-4 hover:bg-[var(--var-light)] hover:text-[var(--var-dark))] rounded-md
+            flex items-center gap-4 justify-stretch
+            '
+            onClick={() => onChange(item)}
+          >
+            {selectedItems.map(item => item.value).includes(item.value) &&
+              <FaCheck/>
+            }
+            {renderOption(item, index)}
+          </div>
         ))}
       </div>
     </div>

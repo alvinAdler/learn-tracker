@@ -5,7 +5,15 @@ import SETTINGS from "../../settings.json"
 import { capitalizeString } from '../../utils'
 import Input from '../../components/input'
 import ReactMarkdown from 'react-markdown'
-import MultiSelectInput from '../../components/multi-select-input'
+import MultiSelectInput, { type OptionType } from '../../components/multi-select-input'
+
+const DUMMY_OPTIONS = [
+  {id: 1, label: "Sample Label 1", value: "sample_value_1"},
+  {id: 2, label: "Sample Label 2", value: "sample_value_2"},
+  {id: 3, label: "Sample Label 3", value: "sample_value_3"},
+  {id: 4, label: "Sample Label 4", value: "sample_value_4"},
+  {id: 5, label: "Sample Label 5", value: "sample_value_5"},
+]
 
 const NotesPage = () => {
 
@@ -32,6 +40,7 @@ const NotesPage = () => {
     ]
   })())
   const [note, setNote] = useState("")
+  const [sampleSelectedItems, setSampleSelectedItems] = useState<typeof DUMMY_OPTIONS[0][]>([])
 
   const cubeRef = useRef<HTMLDivElement>(null)
   const rotateDeg = useRef<number>(0)
@@ -88,6 +97,22 @@ const NotesPage = () => {
     }, 500);
   }
 
+  const handleItemSelected = (item: OptionType) => {
+    const targetItem = DUMMY_OPTIONS.find((optionItem) => optionItem.value === item.value)
+    if(!targetItem){
+      console.error("Error while selecting an item")
+      return;
+    }
+
+    if(sampleSelectedItems.includes(targetItem)){
+      // remove the item
+      setSampleSelectedItems((prevState) => [...prevState.filter((item) => item.value !== targetItem.value)])
+    }else{
+      setSampleSelectedItems((prevState) => [...prevState, targetItem])
+    }
+
+  }
+
   return (
     <div className='h-full min-h-[100vh] flex flex-col items-center w-full gap-8'>
       <div className='text-center mt-20'>
@@ -119,32 +144,20 @@ const NotesPage = () => {
           <div>
             
           </div>
-            <MultiSelectInput<{id: number}>
-              keyword=''
+            <MultiSelectInput
+              initialKeyword=''
               label='Tags'
-              onChange={() => {}}
               onSearch={() => {}}
-              options={[
-                {id: 1, label: "Sample Label 1", value: "sample_value_1"},
-                {id: 2, label: "Sample Label 2", value: "sample_value_2"},
-                {id: 3, label: "Sample Label 3", value: "sample_value_3"},
-                {id: 4, label: "Sample Label 4", value: "sample_value_4"},
-                {id: 5, label: "Sample Label 5", value: "sample_value_5"},
-              ]}
+              options={DUMMY_OPTIONS}
               removeItem={() => {}}
+              onChange={(item) => handleItemSelected(item)}
               renderOption={(item, index) => (
-                <p 
-                  key={index}
-                  className='transition-all hover:text-lg cursor-pointer py-1 px-4 hover:bg-[var(--var-light)] hover:text-[var(--var-dark))] rounded-md'
-                  // style={{border: "3px solid red"}}
-                >
+                <p key={index}>
                   {item.label}
                 </p>
               )}
-              selectedItems={[
-                {id: 2, label: "Sample Label 2", value: "sample_value_2"},
-                {id: 4, label: "Sample Label 4", value: "sample_value_4"},
-              ]}
+              // eslint-disable-next-line
+              selectedItems={sampleSelectedItems.map(({id, ...rest}) => rest)}
             />
         </div>
         <div className='grid gap-4 lg:grid-cols-2'>
