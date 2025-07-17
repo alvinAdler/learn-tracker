@@ -156,7 +156,9 @@ const NotesPage = () => {
                 console.log(currentKeyword)
               }}
               options={DUMMY_OPTIONS}
-              removeItem={() => {}}
+              removeItem={(tobeRemovedItem: OptionType) => {
+                setSampleSelectedItems((prevState) => [...prevState].filter((item) => item.value !== tobeRemovedItem.value))
+              }}
               onChange={(item) => handleItemSelected(item)}
               renderOption={(item, index) => (
                 <p key={index}>

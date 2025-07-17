@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FaCheck } from "react-icons/fa";
+import { FaCheck, FaTimes } from "react-icons/fa";
 import { useDebounce } from "@uidotdev/usehooks";
 
 import styles from "./styles.module.css"
@@ -18,7 +18,7 @@ export type MultiSelectInputProps = {
   onChange: (item: OptionType) => void;
   renderOption: (item: OptionType, index: number) => React.ReactNode;
 }
-const MultiSelectInput = ({ options, label, placeholder, selectedItems, initialKeyword, renderOption, onChange, onSearch}: MultiSelectInputProps) => {
+const MultiSelectInput = ({ options, label, placeholder, selectedItems, initialKeyword, renderOption, onChange, onSearch, removeItem}: MultiSelectInputProps) => {
 
   const [areOptionsVisible, setAreOptionsVisible] = useState(false)
   const [currentSearchValue, setCurrentSearchValue] = useState(initialKeyword)
@@ -69,13 +69,17 @@ const MultiSelectInput = ({ options, label, placeholder, selectedItems, initialK
         ))}
       </div>
       {selectedItems.length > 0 &&
-        <div className='mt-2 p-2 pl-0 flex gap-2' style={{border: "3px solid red"}}>
+        <div className='mt-2 p-2 pl-0 flex gap-2 flex-wrap'>
           {selectedItems.map((item, index) => (
             <Chip
               key={index}
               label={item.label}
               value={item.value}
-              onDelete={(tobeDeletedItem) => console.log(tobeDeletedItem)}
+              onDelete={(tobeDeletedItem) => {
+                const targetItem = options.find((item) => item.value === tobeDeletedItem)
+                if(!targetItem) return;
+                removeItem(targetItem)
+              }}
             />
           ))}
         </div>
@@ -91,7 +95,10 @@ export type ChipProps = {
 }
 export const Chip: React.FC<ChipProps> = ({label, value, onDelete}) => {
   return(
-    <p>{label}</p>
+    <div className='flex items-center gap-2 bg-[var(--var-light)]/50 p-1 rounded-md text-sm'>
+      <p>{label}</p>
+      <button type='button' className='flex items-center justify-center cursor-pointer' onClick={() => onDelete(value)}>{<FaTimes/>}</button>
+    </div>
   )
 }
 
