@@ -13,6 +13,11 @@ const DUMMY_OPTIONS = [
   {id: 3, label: "Sample Label 3", value: "sample_value_3"},
   {id: 4, label: "Sample Label 4", value: "sample_value_4"},
   {id: 5, label: "Sample Label 5", value: "sample_value_5"},
+  {id: 6, label: "Another Label 1", value: "another_value_1"},
+  {id: 7, label: "Another Label 2", value: "another_value_2"},
+  {id: 8, label: "Another Label 3", value: "another_value_3"},
+  {id: 9, label: "Another Label 4", value: "another_value_4"},
+  {id: 10, label: "Another Label 5", value: "another_value_5"},
 ]
 
 const NotesPage = () => {
@@ -147,7 +152,9 @@ const NotesPage = () => {
             <MultiSelectInput
               initialKeyword=''
               label='Tags'
-              onSearch={() => {}}
+              onSearch={(currentKeyword: string) => {
+                console.log(currentKeyword)
+              }}
               options={DUMMY_OPTIONS}
               removeItem={() => {}}
               onChange={(item) => handleItemSelected(item)}
